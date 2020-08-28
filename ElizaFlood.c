@@ -20,7 +20,7 @@ struct pseudo_header
     struct tcphdr tcp;
 };
 
-void print_usage() {
+void printUsage() {
     printf("===============================================\n");
     printf("| ./ElizaFlood [attack type] [address] [port] |\n");
     printf("|=============================================|\n");
@@ -56,7 +56,7 @@ unsigned short csum(unsigned short *ptr,int nbytes) {
 int main(int argv, char *argc[]) {
     if(argv != 4) {
         printf("ERROR: Wrong number of arguments!\n\n");
-        print_usage();
+        printUsage();
         exit(0);
     }
     int sockfd;
@@ -166,7 +166,7 @@ int main(int argv, char *argc[]) {
     }
     else {
         printf("ERROR: Attack type unknown!\n\n");
-        print_usage();
+        printUsage();
     }
     close(sockfd);
     return 0;
