@@ -20,6 +20,16 @@ struct pseudo_header
     struct tcphdr tcp;
 };
 
+void print_usage() {
+    printf("===============================================\n");
+    printf("| ./ElizaFlood [attack type] [address] [port] |\n");
+    printf("|=============================================|\n");
+    printf("| [attack type]: udp, tcp, tcp-syn            |\n");
+    printf("| [adress]: victims ip                        |\n");
+    printf("| [port]: victims port                        |\n");
+    printf("===============================================\n\n");
+}
+
 unsigned short csum(unsigned short *ptr,int nbytes) {
     register long sum;
     unsigned short oddbyte;
@@ -45,14 +55,8 @@ unsigned short csum(unsigned short *ptr,int nbytes) {
 
 int main(int argv, char *argc[]) {
     if(argv != 4) {
-        printf("Wrong number of arguments!\n\n");
-        printf("===============================================\n");
-        printf("| ./ElizaFlood [attack type] [address] [port] |\n");
-        printf("|=============================================|\n");
-        printf("| [attack type]: udp, tcp, tcp-syn            |\n");
-        printf("| [adress]: victims ip                        |\n");
-        printf("| [port]: victims port                        |\n");
-        printf("===============================================\n\n");
+        printf("ERROR: Wrong number of arguments!\n\n");
+        print_usage();
         exit(0);
     }
     int sockfd;
@@ -161,14 +165,8 @@ int main(int argv, char *argc[]) {
         }
     }
     else {
-        printf("attack type unknown!\n\n");
-        printf("===============================================\n");
-        printf("| ./ElizaFlood [attack type] [address] [port] |\n");
-        printf("|=============================================|\n");
-        printf("| [attack type]: udp, tcp, tcp-syn            |\n");
-        printf("| [adress]: victims ip                        |\n");
-        printf("| [port]: victims port                        |\n");
-        printf("===============================================\n\n");
+        printf("ERROR: Attack type unknown!\n\n");
+        print_usage();
     }
     close(sockfd);
     return 0;
